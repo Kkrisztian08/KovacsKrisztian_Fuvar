@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Fuvarok {
     private List<Fuvar> fuvarokLista;
@@ -42,8 +43,7 @@ public class Fuvarok {
     }
 
     public long getTaxisFuvarSzam(int taxi_id) {
-        return fuvarokLista.stream()
-                .filter(fuvar -> fuvar.getTaxi_id() == taxi_id).count();
+        return fuvarokLista.stream().filter(fuvar -> fuvar.getTaxi_id() == taxi_id).count();
     }
 
     public double getMerfold(){
@@ -56,6 +56,46 @@ public class Fuvarok {
 
     public Fuvar getLegtobbBorravalo() {
         return fuvarokLista.stream().max(Comparator.comparingDouble(Fuvar::getBorravalo)).get();
+    }
+
+    public double getTaxisKm(int taxi_id){
+        return fuvarokLista.stream().filter(fuvar -> fuvar.getTaxi_id() == taxi_id).mapToDouble(fuvar -> fuvar.getTavolsag()*1.6).sum();
+    }
+
+    public long getHibasSorokSzama() {
+        return fuvarokLista.stream().filter(fuvar -> fuvar.getIdotartam() > 0 && fuvar.getViteldij() > 0 && fuvar.getTavolsag() == 0).count();
+    }
+
+    public long getHibasSorokUtazasIdotartama() {
+        return fuvarokLista.stream().filter(fuvar -> fuvar.getIdotartam() > 0 && fuvar.getViteldij() > 0 && fuvar.getTavolsag() == 0)
+                .mapToInt(fuvar -> fuvar.getIdotartam()).sum();
+    }
+
+    public double getHibasSorokTeljesBevetele() {
+        return fuvarokLista.stream().filter(fuvar -> fuvar.getIdotartam() > 0 && fuvar.getViteldij() > 0 && fuvar.getTavolsag() == 0)
+                .mapToDouble(fuvar -> fuvar.getViteldij() + fuvar.getBorravalo()).sum();
+    }
+
+    public boolean getSzerepelE(int taxi_id){
+        return fuvarokLista.stream().anyMatch(fuvar -> fuvar.getTaxi_id() == taxi_id);
+    }
+
+    public List<Fuvar> getLegrovidebb3() {
+        return fuvarokLista.stream().filter(fuvar -> fuvar.getIdotartam() > 0).sorted(Comparator.comparingInt(fuvar -> fuvar.getIdotartam()))
+                .limit(3).collect(Collectors.toList());
+    }
+
+    public long getFuvarSzamAdottIdopontban(String indulas) {
+        return fuvarokLista.stream()
+                .filter(fuvar -> fuvar.getIndulas().contains(indulas))
+                .count();
+    }
+
+    public double getBorravaloAdottIdopontban(String indulas) {
+        return fuvarokLista.stream()
+                .filter(fuvar -> fuvar.getIndulas().contains(indulas))
+                .mapToDouble(fuvar -> fuvar.getBorravalo() / fuvar.getViteldij())
+                .sum();
     }
 
 
