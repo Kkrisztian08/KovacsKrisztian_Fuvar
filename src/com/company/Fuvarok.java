@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,6 +48,10 @@ public class Fuvarok {
 
     public double getMerfold(){
         return fuvarokLista.stream().mapToDouble(fuvar ->fuvar.getTavolsag()).sum();
+    }
+
+    public Fuvar getLeghosszabIdo(){
+        return fuvarokLista.stream().max(Comparator.comparingInt(fuvar -> fuvar.getIdotartam())).get();
     }
 
 
