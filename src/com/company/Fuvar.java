@@ -14,9 +14,9 @@ public class Fuvar {
         this.taxi_id=Integer.parseInt(datas[0]);
         this.indulas=datas[1];
         this.idotartam=Integer.parseInt(datas[2]);
-        this.tavolsag=Double.parseDouble(datas[3]);
-        this.viteldij=Double.parseDouble(datas[4]);
-        this.borravalo=Double.parseDouble(datas[5]);
+        this.tavolsag=Double.parseDouble(datas[3].replace(",", "."));
+        this.viteldij=Double.parseDouble(datas[4].replace(",", "."));
+        this.borravalo=Double.parseDouble(datas[5].replace(",", "."));
         this.fizetes_modja =datas[6];
     }
 
