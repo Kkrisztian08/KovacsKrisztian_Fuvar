@@ -54,6 +54,10 @@ public class Fuvarok {
         return fuvarokLista.stream().max(Comparator.comparingInt(fuvar -> fuvar.getIdotartam())).get();
     }
 
+    public Fuvar getLegtobbBorravalo() {
+        return fuvarokLista.stream().max(Comparator.comparingDouble(Fuvar::getBorravalo)).get();
+    }
+
 
     @Override
     public String toString() {
