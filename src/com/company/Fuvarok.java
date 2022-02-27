@@ -30,10 +30,25 @@ public class Fuvarok {
             System.err.println(e.getMessage());
         }
     }
-    public long getfuvarokSzama(){
-        //return realEstatesList.size();
+
+    public long getFuvarokSzama(){
         return fuvarokLista.stream().count();
     }
+
+    public double getTaxisBevetel(int taxi_id) {
+        return fuvarokLista.stream()
+                .filter(fuvar -> fuvar.getTaxi_id() == taxi_id).mapToDouble(fuvar -> fuvar.getViteldij() + fuvar.getBorravalo()).sum();
+    }
+
+    public long getTaxisFuvarSzam(int taxi_id) {
+        return fuvarokLista.stream()
+                .filter(fuvar -> fuvar.getTaxi_id() == taxi_id).count();
+    }
+
+    public double getMerfold(){
+        return fuvarokLista.stream().mapToDouble(fuvar ->fuvar.getTavolsag()).sum();
+    }
+
 
     @Override
     public String toString() {
