@@ -30,6 +30,10 @@ public class Fuvarok {
             System.err.println(e.getMessage());
         }
     }
+    public long getfuvarokSzama(){
+        //return realEstatesList.size();
+        return fuvarokLista.stream().count();
+    }
 
     @Override
     public String toString() {
